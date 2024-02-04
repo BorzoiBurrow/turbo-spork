@@ -17,14 +17,6 @@ ProductTag.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    // products numeric ID
-    tag_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'product',
-        key: 'id',
-      },
-    },
   },
   {
     sequelize,
