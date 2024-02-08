@@ -19,11 +19,11 @@ router.get('/', (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const category_name = req.params.id;
+    const category_id = req.params.id;
     console.log(`request made for id ${req.params.id}`)
     const category = await Category.findOne({
-      where: { id: category_name },
       include: [{ model: Product }],
+      where: { id: category_id },
     });
 
     return res.status(200).json(category);
