@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 
     return res.status(200).json(categories);
   } catch (error) {
-    return res.status(500).json({ error});
+    console.log(error)
   }
 });
 
@@ -33,16 +33,42 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
-  // create a new category
+router.post('/', async (req, res) => {
+  try {
+    const Category = await Category.create(req.body);
+    return res.status(200).json(newCategory);
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({error});
+  }
 });
 
-router.put('/:id', (req, res) => {
-  // update a category by its `id` value
+router.put('/:id', async (req, res) => {
+  try {
+    const ID = req.params.id;
+    let update = await Category.update(req.body, {
+      where: { id: ID },
+    });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({error});
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    const category_name = req.params.id;
+    const deleted = await Category.destroy({
+      where: { id: category_name },
+
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({error});
+  }
 });
+
 
 module.exports = router;
